@@ -19,7 +19,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          {state ? <Sidebar /> :""}
           <main className="content">
             <Navbar clickSidebar={clickSidebar} state={state}/>
             <Routes>
@@ -29,6 +28,7 @@ function App() {
             {/* <Route path="/search/:id" element={<Search />} /> */}
             </Routes>
           </main>
+          {state ? <Sidebar /> :""}
         </div>
       </ThemeProvider>
     </ColorModeContex.Provider>
