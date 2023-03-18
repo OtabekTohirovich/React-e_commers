@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Carusel from "./carusel";
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div>
+      <Carusel/>
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;
+

@@ -7,7 +7,6 @@ import {
 import {
   Avatar,
   Box,
-  Container,
   Grid,
   IconButton,
   Stack,
@@ -15,6 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logos.png";
 import { ColorModeContex, tokens } from "./theme";
 const Navbar = ({ clickSidebar, state }) => {
@@ -23,24 +23,71 @@ const Navbar = ({ clickSidebar, state }) => {
   const colorMode = useContext(ColorModeContex);
 
   return (
-    <Box sx={{ background: `${colors.primary[400]}`, borderBottom: `1px solid ${colors.gray[300]}`}}>
-      <Container fixed>
+    <Box
+      sx={{
+        background: `${colors.primary[400]}`,
+        borderBottom: `1px solid ${colors.gray[300]}`,
+      }}
+    >
+      <div style={{ margin: "auto", width: "95%" }}>
         <Stack sx={{ padding: "10px" }} direction={"row"}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <Avatar alt="Remy Sharp" sx={{ objectFit: "cover" }} src={logo} />
+              <Link to={"/"}>
+                <Avatar
+                  alt="Remy Sharp"
+                  sx={{ objectFit: "cover" }}
+                  src={logo}
+                />
+              </Link>
             </Grid>
             <Grid item xs={4}>
-              <Stack sx={{ padding: "10px" }} direction={"row"} justifyContent='center'>
-                <Typography m={" 0 25px"} sx={{cursor:'pointer'}}> Home </Typography>
-                <Typography m={" 0 25px"} sx={{cursor:'pointer'}}> Products </Typography>
-                <Typography m={" 0 25px"} sx={{cursor:'pointer'}}> FAQ </Typography>
-                <Typography m={" 0 25px"} sx={{cursor:'pointer'}}> Contact </Typography>
+              <Stack
+                sx={{ padding: "10px" }}
+                direction={"row"}
+                justifyContent="center"
+              >
+                <Link to={"/"}>
+                  <Typography
+                    m={" 0 25px"}
+                    sx={{ cursor: "pointer", color: `${colors.gray[100]}` }}
+                  >
+                    Home
+                  </Typography>
+                </Link>
+
+                <Link to={"/products"}>
+                  <Typography
+                    m={" 0 25px"}
+                    sx={{ cursor: "pointer", color: `${colors.gray[100]}` }}
+                  >
+                    Products
+                  </Typography>
+                </Link>
+                <Link to={"/faq"}>
+                  <Typography
+                    m={" 0 25px"}
+                    sx={{ cursor: "pointer", color: `${colors.gray[100]}` }}
+                  >
+                    FAQ
+                  </Typography>
+                </Link>
+                <Link to={"/contact"}>
+                  <Typography
+                    m={" 0 25px"}
+                    sx={{ cursor: "pointer", color: `${colors.gray[100]}` }}
+                  >
+                    Contact
+                  </Typography>
+                </Link>
               </Stack>
             </Grid>
             <Grid item xs={4}>
-              <Stack direction={"row"} justifyContent={'flex-end'}>
-                <IconButton sx={{margin:" 0 15px"}} onClick={colorMode.toggleColorMode}>
+              <Stack direction={"row"} justifyContent={"flex-end"}>
+                <IconButton
+                  sx={{ margin: " 0 15px" }}
+                  onClick={colorMode.toggleColorMode}
+                >
                   {theme.palette.mode === "dark" ? (
                     <DarkModeOutlined />
                   ) : (
@@ -54,13 +101,17 @@ const Navbar = ({ clickSidebar, state }) => {
                     padding: " 7px 20px",
                     border: `1px solid ${colors.redAccend[400]}`,
                     borderRadius: "5px",
-                    margin: '3px 0',
-                    cursor:'pointer'
+                    margin: "3px 0",
+                    cursor: "pointer",
                   }}
                 >
                   Sign In
                 </button>
-                <Typography sx={{ padding: "10px" , margin:" 0 15px", cursor:'pointer'}}>Sign Up</Typography>
+                <Typography
+                  sx={{ padding: "10px", margin: " 0 15px", cursor: "pointer" }}
+                >
+                  Sign Up
+                </Typography>
                 <IconButton
                   onClick={(e) => {
                     clickSidebar(state);
@@ -77,7 +128,7 @@ const Navbar = ({ clickSidebar, state }) => {
             </Grid>
           </Grid>
         </Stack>
-      </Container>
+      </div>
     </Box>
   );
 };
