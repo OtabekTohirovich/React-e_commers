@@ -7,6 +7,7 @@ import {
 import {
   Avatar,
   Box,
+  CardMedia,
   Grid,
   IconButton,
   Stack,
@@ -15,7 +16,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logos.png";
+import logo from "../assets/logocha.svg";
 import { ColorModeContex, tokens } from "./theme";
 const Navbar = ({ clickSidebar, state }) => {
   const theme = useTheme();
@@ -34,10 +35,9 @@ const Navbar = ({ clickSidebar, state }) => {
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <Link to={"/"}>
-                <Avatar
-                  alt="Remy Sharp"
-                  sx={{ objectFit: "cover" }}
-                  src={logo}
+                <CardMedia
+                  sx={{width: "160px" , height: '28px', marginTop: '8px'}}
+                  image={logo}
                 />
               </Link>
             </Grid>
