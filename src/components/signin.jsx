@@ -1,17 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import { Container, Stack, Typography, useTheme } from "@mui/material";
-import { ColorModeContex, tokens } from "./theme";
-import { LockOutlined, VerifiedUserOutlined } from "@mui/icons-material";
+import { Container, Typography, useTheme } from "@mui/material";
+import { tokens } from "./theme";
 import { Link } from "react-router-dom";
 
 const Signin = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContex);
-  const coolers = {
-    color: `${colors.gray[100]}`,
-  };
   //   const onFinish = (values: any) => {
   //     console.log("Success:", values);
   //   };
@@ -83,9 +78,3 @@ const Signin = () => {
 };
 
 export default Signin;
-<Form.Item>
-  <Button type="primary" htmlType="submit" className="login-form-button">
-    Log in
-  </Button>
-  Or <a href="">register now!</a>
-</Form.Item>;
