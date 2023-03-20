@@ -9,6 +9,8 @@ import { useState } from "react";
 import Products from "./components/products";
 import Faq from "./components/faq";
 import Contact from "./components/contact.jsx";
+import Signin from "./components/signin";
+import Signup from "./components/signup";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -26,6 +28,8 @@ function App() {
             <Navbar clickSidebar={clickSidebar} state={state} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/sign-in" element={<Signin />} />
+              <Route path="/sign-up" element={<Signup />} />
               <Route path="/products" element={<Products />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/contact" element={<Contact />} />

@@ -5,7 +5,6 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import {
-  Avatar,
   Box,
   CardMedia,
   Grid,
@@ -36,7 +35,7 @@ const Navbar = ({ clickSidebar, state }) => {
             <Grid item xs={4}>
               <Link to={"/"}>
                 <CardMedia
-                  sx={{width: "160px" , height: '28px', marginTop: '8px'}}
+                  sx={{ width: "160px", height: "28px", marginTop: "8px" }}
                   image={logo}
                 />
               </Link>
@@ -94,24 +93,34 @@ const Navbar = ({ clickSidebar, state }) => {
                     <LightModeOutlined />
                   )}
                 </IconButton>
-                <button
-                  style={{
-                    background: `${colors.redAccend[400]}`,
-                    color: "#fff",
-                    padding: " 7px 20px",
-                    border: `1px solid ${colors.redAccend[400]}`,
-                    borderRadius: "5px",
-                    margin: "3px 0",
-                    cursor: "pointer",
-                  }}
-                >
-                  Sign In
-                </button>
-                <Typography
-                  sx={{ padding: "10px", margin: " 0 15px", cursor: "pointer" }}
-                >
-                  Sign Up
-                </Typography>
+                <Link to={"/sign-in"}>
+                  <button
+                    style={{
+                      background: `${colors.redAccend[400]}`,
+                      color: "#fff",
+                      padding: " 7px 20px",
+                      border: `1px solid ${colors.redAccend[400]}`,
+                      borderRadius: "5px",
+                      margin: "3px 0",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Sign In
+                  </button>
+                </Link>
+                <Link to={"/sign-up"}>
+                  <Typography
+                    sx={{
+                      padding: "10px",
+                      margin: " 0 15px",
+                      cursor: "pointer",
+                      color: `${colors.gray[100]}`
+                    }}
+                  >
+                    Sign Up
+                  </Typography>
+                </Link>
+
                 <IconButton
                   onClick={(e) => {
                     clickSidebar(state);
