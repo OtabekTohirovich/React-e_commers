@@ -1,13 +1,25 @@
 import { Container, Typography, useTheme } from "@mui/material";
-import React from "react";
-import { Button, Checkbox, Form, Input, Select } from "antd";
+import React, { useState } from "react";
+import { Button, Checkbox, Form, Input} from "antd";
 import { tokens } from "./theme";
 import { Link } from "react-router-dom";
-import { Option } from "antd/es/mentions";
 
 const Signup = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const inputHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+  const formHandaler = (e) => {
+    e.preventDefault()
+    console.log(e);
+  }
   return (
     <Container fixed>
       <Typography
@@ -20,14 +32,13 @@ const Signup = () => {
       >
         Sign up Now
       </Typography>
+      <div onSubmit={formHandaler}>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 900 }}
         initialValues={{ remember: true }}
-        //   onFinish={onFinish}
-        //   onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
@@ -41,14 +52,14 @@ const Signup = () => {
             },
           ]}
         >
-          <Input />
+          <Input  onChange={inputHandler} />
         </Form.Item>
         <Form.Item
           label={<label style={{ color: `${colors.gray[100]}` }}>Email</label>}
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input />
+          <Input onChange={inputHandler} />
         </Form.Item>
 
         <Form.Item
@@ -62,7 +73,7 @@ const Signup = () => {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password onChange={inputHandler} />
         </Form.Item>
 
         <Form.Item
@@ -94,7 +105,7 @@ const Signup = () => {
         label={<label style={{ color: `${colors.gray[100]}` }}>Phone Number</label>}
         rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <Input type="number"style={{ width: '100%' }} />
+        <Input type="number"style={{ width: '100%' }} onChange={inputHandler} />
       </Form.Item>
 
         <Form.Item
@@ -108,7 +119,7 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="submit" htmlType="submit">
             Sign Up
           </Button>
 
@@ -118,6 +129,9 @@ const Signup = () => {
           </Link>
         </Form.Item>
       </Form>
+      <button type="submit">sdcsdff</button>
+      </div>
+      
     </Container>
   );
 };

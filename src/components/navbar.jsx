@@ -16,6 +16,7 @@ import {
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logocha.svg";
+import logodark from "../assets/brand.png";
 import { ColorModeContex, tokens } from "./theme";
 const Navbar = ({ clickSidebar, state }) => {
   const theme = useTheme();
@@ -36,7 +37,7 @@ const Navbar = ({ clickSidebar, state }) => {
               <Link to={"/"}>
                 <CardMedia
                   sx={{ width: "160px", height: "28px", marginTop: "8px" }}
-                  image={logo}
+                  image={theme.palette.mode === "dark" ? logodark : logo}
                 />
               </Link>
             </Grid>
@@ -55,7 +56,7 @@ const Navbar = ({ clickSidebar, state }) => {
                   </Typography>
                 </Link>
 
-                <Link to={"/products"}>
+                <Link to={"/public-products"}>
                   <Typography
                     m={" 0 25px"}
                     sx={{ cursor: "pointer", color: `${colors.gray[100]}` }}

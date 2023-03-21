@@ -15,6 +15,14 @@ import Signup from "./components/signup";
 function App() {
   const [theme, colorMode] = useMode();
   const [state, setState] = useState(false);
+  const [states, setStates] = useState("");
+  const token = localStorage.getItem("token");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  
+  const handleAuth = (e) => {
+    setState(e);
+  };
   const clickSidebar = (e) => {
     setState(!e);
   };
@@ -28,9 +36,12 @@ function App() {
             <Navbar clickSidebar={clickSidebar} state={state} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/sign-in" element={<Signin />} />
+              <Route
+                path="/sign-in"
+                element={<Signin handleAuth={handleAuth} />}
+              />
               <Route path="/sign-up" element={<Signup />} />
-              <Route path="/products" element={<Products />} />
+              <Route path="/public-products" element={<Products />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
