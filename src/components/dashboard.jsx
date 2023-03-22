@@ -18,11 +18,10 @@ const Dashboard = () => {
       <Carusel />
 
       <Container>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} >
           {data?.map((item) => (
-            <Grid item xs={3}>
-
-              <CardComponet key={item?._id} {...item} />
+            <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
+              <CardComponet {...item} />
             </Grid>
           ))}
         </Grid>
