@@ -102,7 +102,7 @@ const Navbar = ({ clickSidebar, state }) => {
                       padding: " 7px 20px",
                       border: `1px solid ${colors.redAccend[400]}`,
                       borderRadius: "5px",
-                      margin: "3px 0",
+                      margin: "5px 0",
                       cursor: "pointer",
                     }}
                   >

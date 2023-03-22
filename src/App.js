@@ -15,9 +15,9 @@ import Signup from "./components/signup";
 function App() {
   const [theme, colorMode] = useMode();
   const [state, setState] = useState(false);
-  const [states, setStates] = useState("");
-  const token = localStorage.getItem("token");
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [states, setStates] = useState("");
+  // const token = localStorage.getItem("token");
+  // const [searchTerm, setSearchTerm] = useState("");
 
   
   const handleAuth = (e) => {

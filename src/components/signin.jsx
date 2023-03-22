@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Button, Container, Typography, useTheme } from "@mui/material";
+import { Button, Checkbox, Form, Input } from "antd";
 import { tokens } from "./theme";
-import { Form, FormWreapper, Input, Label } from "./style";
 import { signInRequest } from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { Container, Typography, useTheme } from "@mui/material";
 
 const Signin = ({ handleAuth }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const notify = () =>
     toast.success("🦄 Successfuly Login!", {
       position: "top-right",
@@ -49,7 +49,6 @@ const Signin = ({ handleAuth }) => {
     } catch (error) {}
   };
 
-  const { email, password } = user;
   return (
     <Container fixed>
       <Typography
@@ -76,35 +75,45 @@ const Signin = ({ handleAuth }) => {
           theme="light"
         />
       </div>
-      <FormWreapper>
-        <Form onSubmit={formHandaler}>
-          <Label >
-            Email:  
-            <Input
-              onChange={inputHandler}
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              required
-              style={{marginLeft: '10px'}}
-            />
-          </Label>
-          <Label>
-            Password: 
-            <Input
-              onChange={inputHandler}
-              type="password"
-              name="password"
-              placeholder="password"
-              value={password}
-              required
-              style={{marginLeft: '10px'}}
-            />
-          </Label>
-          <Button type="submit">Sign in</Button>
-        </Form>
-      </FormWreapper>
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 900 }}
+        initialValues={{ remember: true }}
+        autoComplete="off"
+        onSubmitCapture={formHandaler}
+      >
+        <Form.Item
+          label={<label style={{ color: `${colors.gray[100]}` }}>Email</label>}
+          name="email"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input name="email" value={user.email} onChange={inputHandler}/>
+        </Form.Item>
+
+        <Form.Item
+          label={<label style={{ color: `${colors.gray[100]}` }}>Password</label>}
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+        >
+          <Input.Password name="password" value={user.password} onChange={inputHandler} />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
+          <Checkbox style={{ color: `${colors.gray[100]}` }}>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }} getValueProps={user}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </Container>
   );
 };

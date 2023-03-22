@@ -1,25 +1,35 @@
 import { Container, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input} from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import { tokens } from "./theme";
 import { Link } from "react-router-dom";
+import { signUpRequest } from "../api";
 
 const Signup = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [user, setUser] = useState({
+    name: "",
     email: "",
     password: "",
+    phone: "",
   });
   const inputHandler = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+     setUser({ ...user, [name]: value })
   };
+
   const formHandaler = (e) => {
-    e.preventDefault()
-    console.log(e);
-  }
+    e.preventDefault();
+    console.log(user);
+    signUpRequest(user).then((data)=>{
+      if(data.data.success === true){
+         console.log(data);
+      }
+    })
+  };
+  // console.log(user);
   return (
     <Container fixed>
       <Typography
@@ -32,7 +42,6 @@ const Signup = () => {
       >
         Sign up Now
       </Typography>
-      <div onSubmit={formHandaler}>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -40,31 +49,29 @@ const Signup = () => {
         style={{ maxWidth: 900 }}
         initialValues={{ remember: true }}
         autoComplete="off"
+        onSubmitCapture={formHandaler}
       >
         <Form.Item
-          name="username"
-          label={<label style={{ color: `${colors.gray[100]}` }}>Username</label>}
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-              whitespace: true,
-            },
-          ]}
+          name={["name"]}
+          label={<label style={{ color: `${colors.gray[100]}` }}>Name</label>}
+          rules={[{ required: true, message: "Please input your name!" }]}
         >
-          <Input  onChange={inputHandler} />
+          <Input value={user.name} name={"name"} onChange={inputHandler} />
         </Form.Item>
+
         <Form.Item
           label={<label style={{ color: `${colors.gray[100]}` }}>Email</label>}
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input onChange={inputHandler} />
+          <Input value={user.email} name={"email"} onChange={inputHandler} />
         </Form.Item>
 
         <Form.Item
           name="password"
-          label={<label style={{ color: `${colors.gray[100]}` }}>Password</label>}
+          label={
+            <label style={{ color: `${colors.gray[100]}` }}>Password</label>
+          }
           rules={[
             {
               required: true,
@@ -73,12 +80,20 @@ const Signup = () => {
           ]}
           hasFeedback
         >
-          <Input.Password onChange={inputHandler} />
+          <Input.Password
+            value={user.password}
+            name={"password"}
+            onChange={inputHandler}
+          />
         </Form.Item>
 
         <Form.Item
           name="confirm"
-          label={<label style={{ color: `${colors.gray[100]}` }}>Confirm Password</label>}
+          label={
+            <label style={{ color: `${colors.gray[100]}` }}>
+              Confirm Password
+            </label>
+          }
           dependencies={["password"]}
           hasFeedback
           rules={[
@@ -101,12 +116,22 @@ const Signup = () => {
           <Input.Password />
         </Form.Item>
         <Form.Item
-        name="phone"
-        label={<label style={{ color: `${colors.gray[100]}` }}>Phone Number</label>}
-        rules={[{ required: true, message: 'Please input your phone number!' }]}
-      >
-        <Input type="number"style={{ width: '100%' }} onChange={inputHandler} />
-      </Form.Item>
+          name="phone"
+          label={
+            <label style={{ color: `${colors.gray[100]}` }}>Phone Number</label>
+          }
+          rules={[
+            { required: true, message: "Please input your phone number!" },
+          ]}
+        >
+          <Input
+            type="number"
+            style={{ width: "100%" }}
+            onChange={inputHandler}
+            value={user.phone}
+            name={"phone"}
+          />
+        </Form.Item>
 
         <Form.Item
           name="remember"
@@ -118,8 +143,8 @@ const Signup = () => {
           </Checkbox>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="submit" htmlType="submit">
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }} getValueProps={user}>
+          <Button type="primary" htmlType="submit">
             Sign Up
           </Button>
 
@@ -129,9 +154,6 @@ const Signup = () => {
           </Link>
         </Form.Item>
       </Form>
-      <button type="submit">sdcsdff</button>
-      </div>
-      
     </Container>
   );
 };

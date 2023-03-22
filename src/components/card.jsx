@@ -3,12 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Container } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 
 const CardComponet = ({name, _id, img, salePrice}) => {
   return (
-    <Container>
-      <Card sx={{ maxWidth: 345 }} data-id={_id}>
+      <Card sx={{ maxWidth: 245 }} data-id={_id}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -26,7 +25,6 @@ const CardComponet = ({name, _id, img, salePrice}) => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </Container>
   );
 };
 
