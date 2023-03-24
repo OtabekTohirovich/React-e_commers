@@ -26,17 +26,18 @@ export const FormWreapper = styled.div`
   height: 100vh;
 `;
 
-export const Input = styled.input`
-  width: 100%;
+export const BtnCostum = styled.div`
+  width: 100px;
   height: 28px;
-  padding: 10px;
-  border: 2px solid;
+  padding: 4px 0 0 13px;
+  border: 2px solid #9ae6b4;
   border-radius: 10px;
   outline: none;
-  z-index: 2;
-  height: 35px;
   &::placeholder {
     opacity: 0.5;
+  }
+  &:hover {
+    background-color: #fff !Important;
   }
 `;
 

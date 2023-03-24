@@ -3,8 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, useTheme } from "@mui/material";
+import { Button, CardActionArea, CardActions, useTheme } from "@mui/material";
 import { tokens } from "./theme";
+import "../App.css";
 
 const CardComponet = ({ name, _id, img, salePrice }) => {
   const theme = useTheme();
@@ -18,6 +19,7 @@ const CardComponet = ({ name, _id, img, salePrice }) => {
         padding: 1,
       }}
       data-id={_id}
+      className="card"
     >
       <CardActionArea>
         <CardMedia
@@ -40,21 +42,13 @@ const CardComponet = ({ name, _id, img, salePrice }) => {
           <Typography variant="body2" color="text.secondary">
             {salePrice}
           </Typography>
-
-          <Button
-            variant={`${
-              theme.palette.mode === "dark" ? "contained" : "outlined"
-            }`}
-            sx={{
-              background: `${theme.palette.mode === "dark" ? "#f96435" : ""}`,
-              maxWidth: "150px",
-              textTransform:'capitalize'
-            }}
-          >
-            Add to cart
-          </Button>
         </CardContent>
       </CardActionArea>
+      <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+        <Button  variant={`${theme.palette.mode === "dark" ? "contained" : "outlined"}`} size="small" color="secondary" sx={{textTransform:'capitalize'}}>
+          Add to cart
+        </Button>
+      </CardActions>
     </Card>
   );
 };

@@ -1,7 +1,7 @@
 import { Container, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import { tokens } from "./theme";
+import { tokens } from "../components/theme";
 import { Link } from "react-router-dom";
 import { signUpRequest } from "../api";
 

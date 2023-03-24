@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
-import { tokens } from "./theme";
+import { tokens } from "../components/theme";
 import { signInRequest } from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
