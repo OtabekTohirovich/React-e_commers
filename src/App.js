@@ -13,10 +13,16 @@ import Signin from "./pages/signin";
 import Signup from "./pages/signup";
 import { getProducts } from "./api";
 import MainPage from "./pages/main";
+import NavbarMain from "./main/navbar-main";
+import DefaultSidebar from "./components/default-sidebar";
+import Purchases from "./pages/purchases";
+import Delivery from "./pages/delivery";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [state, setState] = useState(false);
+  const [open, setOpen] = useState(false);
+
   // const [states, setStates] = useState("");
   const token = localStorage.getItem('token')
   // const [searchTerm, setSearchTerm] = useState("");
@@ -28,13 +34,17 @@ function App() {
     });
   }, []);
   
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const handleAuth = (e) => {
     setState(e);
   };
-  const clickSidebar = (e) => {
-    setState(!e);
-  };
-  console.log(state);
 
   if (token) {
     return (
@@ -42,21 +52,18 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div className="app">
+            <DefaultSidebar/>
             <main className="content">
-              <Navbar clickSidebar={clickSidebar} state={state} />
+              <NavbarMain showDrawer={showDrawer} open={open} />
               <Routes>
                 <Route path="/" element={<MainPage data={data}/>} />
-                {/* <Route
-                  path="/sign-in"
-                  element={<Signin handleAuth={handleAuth} />}
-                />
-                <Route path="/sign-up" element={<Signup />} /> */}
-                {/* <Route path="/public-products" element={<PublicProducts data={data} />} /> */}
-                <Route path="/faq" element={<Faq />} />
+                <Route path="/delivery" element={<Delivery />} /> 
+                <Route path="/products" element={<PublicProducts data={data} />} />
+                <Route path="/purchases" element={<Purchases />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
-            {state ? <Sidebar /> : ""}
+            <Sidebar showDrawer={showDrawer} open={open} onClose={onClose}/>
           </div>
         </ThemeProvider>
       </ColorModeContex.Provider>
@@ -69,7 +76,7 @@ function App() {
           <CssBaseline />
           <div className="app">
             <main className="content">
-              <Navbar clickSidebar={clickSidebar} state={state} />
+              <Navbar showDrawer={showDrawer} open={open} />
               <Routes>
                 <Route path="/" element={<Dashboard data={data}/>} />
                 <Route
@@ -82,7 +89,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
-            {state ? <Sidebar /> : ""}
+            <Sidebar showDrawer={showDrawer} open={open} onClose={onClose}/>
           </div>
         </ThemeProvider>
       </ColorModeContex.Provider>

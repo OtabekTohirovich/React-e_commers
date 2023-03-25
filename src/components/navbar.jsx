@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logocha.svg";
 import logodark from "../assets/brand.png";
 import { ColorModeContex, tokens } from "./theme";
-const Navbar = ({ clickSidebar, state }) => {
+const Navbar = ({ showDrawer, open }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContex);
@@ -124,7 +124,7 @@ const Navbar = ({ clickSidebar, state }) => {
 
                 <IconButton
                   onClick={(e) => {
-                    clickSidebar(state);
+                    showDrawer(open);
                   }}
                   sx={{ color: `${colors.gray[200]}` }}
                 >

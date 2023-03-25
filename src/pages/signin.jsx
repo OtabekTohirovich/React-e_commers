@@ -6,11 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useNavigate } from "react-router-dom";
 import { Container, Typography, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Signin = ({ handleAuth }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const notify = () =>
     toast.success("🦄 Successfuly Login!", {
       position: "top-right",
@@ -43,7 +44,7 @@ const Signin = ({ handleAuth }) => {
           localStorage.setItem("user", JSON.stringify(data.payload));
           notify();
           handleAuth(data.token);
-          // navigate("/products");
+          navigate("/");
         }
       });
     } catch (error) {}

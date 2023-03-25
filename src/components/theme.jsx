@@ -41,7 +41,7 @@ export const tokens = (mode) => ({
           900: "#040509",
         },
         greenAccend: {
-          100: "#dbf5ee",
+          100: "#303641",
           200: "#b7ebde",
           300: "#94e2cd",
           400: "#70d8bd",
@@ -110,7 +110,7 @@ export const tokens = (mode) => ({
           900: "#d0d1d5",
         },
         greenAccend: {
-          100: "#0f2922",
+          100: "#edf0f2",
           200: "#1e5245",
           300: "#2e7c67",
           400: "#3da58a",
