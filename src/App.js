@@ -5,13 +5,12 @@ import { ColorModeContex, useMode } from "./components/theme";
 import Navbar from "./components/navbar";
 import Sidebar from "./components/sidebar";
 import Dashboard from "./pages/dashboard";
-import { useEffect, useState } from "react";
-import PublicProducts from "./pages/products";
+import { useState } from "react";
+import {PublicProducts, Products } from "./pages/products";
 import Faq from "./components/faq";
 import Contact from "./components/contact.jsx";
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
-import { getProducts } from "./api";
 import MainPage from "./pages/main";
 import NavbarMain from "./main/navbar-main";
 import DefaultSidebar from "./components/default-sidebar";
@@ -27,12 +26,7 @@ function App() {
   const token = localStorage.getItem('token')
   // const [searchTerm, setSearchTerm] = useState("");
 
-  const [data, setData] = useState();
-  useEffect(() => {
-    getProducts().then((data) => {
-      setData(data.data.data);
-    });
-  }, []);
+
   
   const showDrawer = () => {
     setOpen(true);
@@ -56,9 +50,8 @@ function App() {
             <main className="content">
               <NavbarMain showDrawer={showDrawer} open={open} />
               <Routes>
-                <Route path="/" element={<MainPage data={data}/>} />
+                <Route path="/products" element={<Products />} />
                 <Route path="/delivery" element={<Delivery />} /> 
-                <Route path="/products" element={<PublicProducts data={data} />} />
                 <Route path="/purchases" element={<Purchases />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
@@ -78,13 +71,13 @@ function App() {
             <main className="content">
               <Navbar showDrawer={showDrawer} open={open} />
               <Routes>
-                <Route path="/" element={<Dashboard data={data}/>} />
+                <Route path="/" element={<Dashboard />} />
                 <Route
                   path="/sign-in"
                   element={<Signin handleAuth={handleAuth} />}
                 />
                 <Route path="/sign-up" element={<Signup />} />
-                <Route path="/public-products" element={<PublicProducts data={data} />} />
+                <Route path="/public-products" element={<PublicProducts  />} />
                 <Route path="/faq" element={<Faq />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>

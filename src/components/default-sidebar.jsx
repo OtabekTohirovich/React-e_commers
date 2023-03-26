@@ -130,7 +130,6 @@ const DefaultSidebar = () => {
           borderRadius: '10px'
         }}
       >
-        {" "}
         <Logout sx={{ marginLeft: "8px" }} /> <Typography>Sign out</Typography>
       </button>
     </Stack>

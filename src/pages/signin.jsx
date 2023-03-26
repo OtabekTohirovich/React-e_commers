@@ -44,7 +44,7 @@ const Signin = ({ handleAuth }) => {
           localStorage.setItem("user", JSON.stringify(data.payload));
           notify();
           handleAuth(data.token);
-          navigate("/");
+          navigate("/products");
         }
       });
     } catch (error) {}
