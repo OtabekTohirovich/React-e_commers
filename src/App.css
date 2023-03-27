@@ -1,4 +1,19 @@
 .card:hover {
-    transform: scale(1.02);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transform: scale(1.02);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+
+.custom-scrollbars__content {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+.custom-scrollbars__content::-webkit-scrollbar-thumb{
+    width: 16px; 
+}
+.custom-scrollbars__content::-webkit-scrollbar-track {
+    width: 10px;
+}
+

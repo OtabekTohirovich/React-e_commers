@@ -17,6 +17,7 @@ import DefaultSidebar from "./components/default-sidebar";
 import Purchases from "./pages/purchases";
 import Delivery from "./pages/delivery";
 import { ProductProvider } from "./context/product-context";
+import Profile from "./pages/profile";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -54,6 +55,7 @@ function App() {
                   <Route path="/delivery" element={<Delivery />} />
                   <Route path="/purchases" element={<Purchases />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Routes>
               </main>
               <Sidebar showDrawer={showDrawer} open={open} onClose={onClose} />

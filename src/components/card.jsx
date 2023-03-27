@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import {
   Box,
   Button,
-  CardActionArea,
   CardActions,
   IconButton,
   Modal,
@@ -46,7 +45,6 @@ const CardComponet = ({ name, _id, img, salePrice }) => {
       data-id={_id}
       className="card"
     >
-      <CardActionArea>
         <CardMedia
           component="img"
           sx={{ borderRadius: 1 }}
@@ -125,7 +123,6 @@ const CardComponet = ({ name, _id, img, salePrice }) => {
             </Box>
           </Modal>
         </CardContent>
-      </CardActionArea>
       <CardActions sx={{ display: "flex", justifyContent: "center" }}>
         <Button
           onClick={handleOpen}

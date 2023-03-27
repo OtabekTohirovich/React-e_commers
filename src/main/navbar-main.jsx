@@ -1,4 +1,5 @@
 import {
+  AccountCircle,
   DarkModeOutlined,
   LightModeOutlined,
   Search,
@@ -7,13 +8,13 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
-  Grid,
   IconButton,
   InputBase,
   Stack,
   useTheme,
 } from "@mui/material";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom";
 // import logo from "../assets/logocha.svg";
 // import logodark from "../assets/brand.png";
@@ -31,7 +32,11 @@ const NavbarMain = ({ showDrawer, open }) => {
       }}
     >
       <div style={{ margin: "auto", width: "95%" }}>
-        <Stack sx={{ padding: "10px" }} direction={"row"} justifyContent={'space-between'}>
+        <Stack
+          sx={{ padding: "10px" }}
+          direction={"row"}
+          justifyContent={"space-between"}
+        >
           <Box
             display={"flex"}
             backgroundColor={colors.gray[300]}
@@ -47,16 +52,18 @@ const NavbarMain = ({ showDrawer, open }) => {
           </Box>
 
           <Stack direction={"row"}>
-            <IconButton
-              sx={{ margin: " 0 15px" }}
-              onClick={colorMode.toggleColorMode}
-            >
+            <IconButton onClick={colorMode.toggleColorMode}>
               {theme.palette.mode === "dark" ? (
                 <DarkModeOutlined />
               ) : (
                 <LightModeOutlined />
               )}
             </IconButton>
+            <Link to={'/profile'}>
+              <IconButton sx={{ margin: " 0 15px" }}>
+                <AccountCircle />
+              </IconButton>
+            </Link>
 
             <IconButton
               onClick={(e) => {

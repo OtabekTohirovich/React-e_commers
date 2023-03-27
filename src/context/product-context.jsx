@@ -9,7 +9,7 @@ export function ProductProvider({ children }) {
   const [data, setData] = useState("");
   useEffect(() => {
     getProducts().then((data) => {
-      setItems(data?.data?.data);
+      setItems(data?.data);
     });
   }, [data]);
   const changeData = (data) => {
