@@ -11,9 +11,14 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
-const DefaultSidebar = () => {
+const DefaultSidebar = ({handleAuth}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const ClearLocal = () =>{
+    localStorage.clear();
+    handleAuth();
+  }
+
   return (
     <Stack
       direction={"column"}
@@ -37,7 +42,7 @@ const DefaultSidebar = () => {
         />
       </div>
 
-      <Link to={"/products"}>
+      <Link to={"/"}>
         <button
           style={{
             width: "100%",
@@ -114,7 +119,6 @@ const DefaultSidebar = () => {
           <Typography variant="h5"> Contact </Typography> <SettingsPhone />
         </button>
       </Link>
-
       <button
         style={{
           width: "100px",
@@ -127,8 +131,10 @@ const DefaultSidebar = () => {
           color: "#fff",
           background: "#f91b62",
           border: "1px solid #f91b62",
-          borderRadius: '10px'
+          borderRadius: '10px',
+          cursor: 'pointer'
         }}
+        onClick={ClearLocal}
       >
         <Logout sx={{ marginLeft: "8px" }} /> <Typography>Sign out</Typography>
       </button>

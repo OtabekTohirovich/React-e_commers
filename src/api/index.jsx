@@ -12,3 +12,10 @@ export function signInRequest(data) {
 export function getProducts(page = 1) {
   return axios.get(`/products?page=${page}`);
 }
+
+export function getPublicProducts() {
+  return axios.get(`/products/public`);
+}
+
+
+// products/public
