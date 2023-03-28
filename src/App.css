@@ -17,3 +17,13 @@
     width: 10px;
 }
 
+.card-btn {
+  padding: 8px 15px;
+  border: 0px;
+  cursor: pointer;
+  width: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

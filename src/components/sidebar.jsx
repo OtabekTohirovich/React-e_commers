@@ -4,6 +4,7 @@ import React from "react";
 import { Drawer, Space } from "antd";
 import { Button } from "@mui/material";
 import { HighlightOff } from "@mui/icons-material";
+import Cart from "../pages/cart";
 
 const Sidebar = ({ showDrawer, onClose, open }) => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Sidebar = ({ showDrawer, onClose, open }) => {
         open={open}
         style={{background:` ${colors.greenAccend[100]}` }}
       >
-        <Button>hello</Button>
+        <Cart />
       </Drawer>
     </>
   );

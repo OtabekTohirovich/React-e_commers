@@ -4,48 +4,36 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import {
-  Box,
-  Button,
-  ButtonGroup,
   CardActions,
-  IconButton,
-  Modal,
   useTheme,
 } from "@mui/material";
 import { tokens } from "./theme";
 import "../App.css";
-import { Add, HighlightOff, LocalMall, Remove } from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
+import { CardIcon } from "./style";
+import { useNavigate } from "react-router-dom";
+import ModalWreapper from "./modal";
 
-const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
+const CardComponet = ({ name, _id, img, salePrice, quantity, data: { product } }) => {
   const theme = useTheme();
+  const navigate = useNavigate()
   const colors = tokens(theme.palette.mode);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+  const user = JSON.parse(localStorage.getItem("user"));
   const handleClose = () => setOpen(false);
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "900px",
-    height: "400px",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    border: `1px solid ${colors.gray[300]}`,
-    background: `${colors.gray[300]}`,
-    borderRadius: "10px",
-    display: "flex",
-  };
+
+
   return (
     <Card
-      sx={{
-        background: `${theme.palette.mode === "dark" ? "#2d3748" : ""}`,
-        maxWidth: 270,
-        padding: 1,
-      }}
-      data-id={_id}
-      className="card"
+    sx={{
+      background: `${theme.palette.mode === "dark" ? "#2d3748" : ""}`,
+      maxWidth: 270,
+      padding: 1,
+    }}
+    className="card"
     >
+    <ModalWreapper _id={_id} open={open} name={name} img={img} salePrice={salePrice} handleClose={handleClose} quantity={quantity} product={product} />        
       <CardMedia
         component="img"
         sx={{ borderRadius: 1 }}
@@ -66,106 +54,24 @@ const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
         <Typography variant="body2" color="text.secondary">
           {salePrice}
         </Typography>
-
-       
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "center" }}>
-      <Modal
-          open={open}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Box
-              width={"50%"}
-              sx={{
-                borderRight: `1px solid ${colors.gray[800]}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img width={"70%"} src={img} alt="Product-img" />
-            </Box>
-            <Box
-              width={"50%"}
-              sx={{
-                padding: "40px",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Typography variant="h2" fontWeight={"bold"}>
-                {name ? name : "Product"}
-              </Typography>
-              <Typography pt={3} variant="h4" component="div">
-                Sizga ko'rsatilgan maxsulot bir dona uchun belgilangan
-              </Typography>
-              <div style={{ display: "flex"  , justifyContent: 'space-between', marginTop: "20px"}}>
-                <div
-                  style={{
-                    display: "flex",
-                    border: `1px solid ${colors.gray[600]}`,
-                    width: "110px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <IconButton>
-                    <Remove />
-                  </IconButton>
-                  <Typography
-                    fontWeight={"bold"}
-                    variant={"h4"}
-                    sx={{ p: "6px 13px", color: `${colors.gray[500]}` }}
-                  >
-                    1
-                  </Typography>
-                  <IconButton>
-                    <Add />
-                  </IconButton>
-                </div>
-                <div>
-                  <Typography variant="h3">{salePrice} <sub style={{fontSize: '15px'}}>UZS</sub></Typography>
-                </div>
-              </div>
-              <Typography variant="h5" p={3}> In stock: <span style={{fontWeight: 'bold'}}>{quantity}</span></Typography>
 
-              <Button
-                size="large"
-                variant={`${
-                  theme.palette.mode === "dark" ? "contained" : "outlined"
-                }`}
-                color="secondary"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Add to <LocalMall />
-              </Button>
-              <IconButton
-                onClick={handleClose}
-                sx={{
-                  color: ` ${colors.gray[100]}`,
-                  position: "absolute",
-                  top: "15px",
-                  right: "15px",
-                }}
-              >
-                <HighlightOff />
-              </IconButton>
-            </Box>
-          </Box>
-        </Modal>
-        <Button
-          onClick={handleOpen}
-          variant={`${
-            theme.palette.mode === "dark" ? "contained" : "outlined"
-          }`}
-          size="small"
-          color="secondary"
-          sx={{ textTransform: "capitalize" }}
-        >
-          Add to cart
-        </Button>
+        {user ? (
+          <button className="card-btn" style={{background: `${colors.primary[900]}`}} onClick={handleOpen}>
+            <CardIcon>
+              <ShoppingCart sx={{color: ` ${colors.redAccend[500]}`}} />
+            </CardIcon>
+          </button>
+        ) : (
+          <button onClick={() => navigate("/sign-in")} className="card-btn">
+            <CardIcon>
+              <ShoppingCart sx={{color: ` ${colors.gray[500]}`}} />
+            </CardIcon>
+          </button>
+        )}
+
+        
       </CardActions>
     </Card>
   );

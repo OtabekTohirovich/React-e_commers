@@ -41,3 +41,38 @@ export const BtnCostum = styled.div`
   }
 `;
 
+export const CardIcon = styled.span`
+  font-size: 22px;
+  color: var(--orange);
+`;
+
+
+export const WrapperAmount = styled.div`
+  display: flex;
+  border: 0.1px solid #c8c2c2;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 1px;
+  border-radius: 4px;
+  width: 80px;
+  font-size: 12px;
+  margin: 0px 10px 0px 10px;
+`;
+export const BtnAmount = styled.span`
+  cursor: pointer;
+  border: none;
+  padding: 0px 2px;
+  height: 100%;
+  width: 36px;
+  background-color: transparent;
+`;
+export const InputAmount = styled.input`
+  outline: none;
+  width: 100%;
+  text-align: center;
+  border: none;
+  padding-top: 4px;
+`;

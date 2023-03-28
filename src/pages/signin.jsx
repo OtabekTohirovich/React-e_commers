@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { tokens } from "../components/theme";
-import { signInRequest } from "../api";
+import { CreateCart, signInRequest } from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useNavigate } from "react-router-dom";
 import { Container, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -38,10 +37,13 @@ const Signin = ({ handleAuth }) => {
     try {
       signInRequest(user).then(({ data }) => {
         if (data.success === true) {
+          CreateCart().then(({ data }) => {
+            localStorage.setItem("cardId", data.payload._id);
+          });
           console.log(data);
-          // localStorage.setItem("cardId", createCart.payload._id);
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.payload));
+          localStorage.setItem("userId", JSON.stringify(data.payload._id));
           notify();
           handleAuth(data.token);
           navigate("/");
@@ -90,15 +92,21 @@ const Signin = ({ handleAuth }) => {
           name="email"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input name="email" value={user.email} onChange={inputHandler}/>
+          <Input name="email" value={user.email} onChange={inputHandler} />
         </Form.Item>
 
         <Form.Item
-          label={<label style={{ color: `${colors.gray[100]}` }}>Password</label>}
+          label={
+            <label style={{ color: `${colors.gray[100]}` }}>Password</label>
+          }
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
         >
-          <Input.Password name="password" value={user.password} onChange={inputHandler} />
+          <Input.Password
+            name="password"
+            value={user.password}
+            onChange={inputHandler}
+          />
         </Form.Item>
 
         <Form.Item
@@ -106,7 +114,9 @@ const Signin = ({ handleAuth }) => {
           valuePropName="checked"
           wrapperCol={{ offset: 8, span: 16 }}
         >
-          <Checkbox style={{ color: `${colors.gray[100]}` }}>Remember me</Checkbox>
+          <Checkbox style={{ color: `${colors.gray[100]}` }}>
+            Remember me
+          </Checkbox>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }} getValueProps={user}>

@@ -38,7 +38,7 @@ const Products = () => {
             {items?.data?.map((item) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
-                  <CardComponet {...item} />
+                  <CardComponet {...item} data={item} />
                 </Grid>
               );
             })}

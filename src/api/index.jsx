@@ -17,5 +17,27 @@ export function getPublicProducts() {
   return axios.get(`/products/public`);
 }
 
+export function getProduct(id) {
+  return axios.get(`/products/${id}`);
+}
+
+export function CreateCart() {
+  return axios.post(`/cart/`)
+}
+
+export function getCart(id) {
+  return axios.get(`cart/${id}`);
+}
+
+export function RemoveCart(id, data) {
+  return axios
+    .put(`/cart/${id}/remove`, {
+      id:id,
+      items:data
+    })
+    .then((res) => res.data)
+    .catch((err) => err);
+}
+
 
 // products/public

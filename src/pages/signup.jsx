@@ -2,12 +2,13 @@ import { Container, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { tokens } from "../components/theme";
-import { Link } from "react-router-dom";
-import { signUpRequest } from "../api";
+import { Link, useNavigate } from "react-router-dom";
+import { CreateCart, signUpRequest } from "../api";
 
-const Signup = () => {
+const Signup = ({ handleAuth }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -22,14 +23,20 @@ const Signup = () => {
 
   const formHandaler = (e) => {
     e.preventDefault();
-    console.log(user);
     signUpRequest(user).then((data)=>{
-      if(data.data.success === true){
-         console.log(data);
+      console.log(data);
+      if (data.data.success === true) {
+        CreateCart().then(({ data }) => {
+          localStorage.setItem("cardId", data.payload._id);
+        });
+        localStorage.setItem("token", data.data.token);
+        localStorage.setItem("user", JSON.stringify(data.data.user));
+        localStorage.setItem("userId", JSON.stringify(data.data.user._id));
+        handleAuth(data.token);
+        navigate("/");
       }
     })
   };
-  // console.log(user);
   return (
     <Container fixed>
       <Typography

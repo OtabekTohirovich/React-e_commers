@@ -18,6 +18,7 @@ import Purchases from "./pages/purchases";
 import Delivery from "./pages/delivery";
 import { ProductProvider } from "./context/product-context";
 import Profile from "./pages/profile";
+import { CartProvider } from "./context/cart-context";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -43,25 +44,31 @@ function App() {
   if (token) {
     return (
       <ProductProvider>
-        <ColorModeContex.Provider value={colorMode}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className="app">
-              <DefaultSidebar handleAuth={(e) => handleAuth(e)} />
-              <main className="content">
-                <NavbarMain showDrawer={showDrawer} open={open} />
-                <Routes>
-                  <Route path="/" element={<Products />} />
-                  <Route path="/delivery" element={<Delivery />} />
-                  <Route path="/purchases" element={<Purchases />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/profile" element={<Profile />} />
-                </Routes>
-              </main>
-              <Sidebar showDrawer={showDrawer} open={open} onClose={onClose} />
-            </div>
-          </ThemeProvider>
-        </ColorModeContex.Provider>
+        <CartProvider>
+          <ColorModeContex.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <div className="app">
+                <DefaultSidebar handleAuth={(e) => handleAuth(e)} />
+                <main className="content">
+                  <NavbarMain showDrawer={showDrawer} open={open} />
+                  <Routes>
+                    <Route path="/" element={<Products />} />
+                    <Route path="/delivery" element={<Delivery />} />
+                    <Route path="/purchases" element={<Purchases />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/profile" element={<Profile />} />
+                  </Routes>
+                </main>
+                <Sidebar
+                  showDrawer={showDrawer}
+                  open={open}
+                  onClose={onClose}
+                />
+              </div>
+            </ThemeProvider>
+          </ColorModeContex.Provider>
+        </CartProvider>
       </ProductProvider>
     );
   } else {
@@ -78,7 +85,10 @@ function App() {
                   path="/sign-in"
                   element={<Signin handleAuth={handleAuth} />}
                 />
-                <Route path="/sign-up" element={<Signup />} />
+                <Route
+                  path="/sign-up"
+                  element={<Signup handleAuth={handleAuth} />}
+                />
                 <Route path="/public-products" element={<PublicProducts />} />
                 <Route path="/faq" element={<Faq />} />
                 <Route path="/contact" element={<Contact />} />
