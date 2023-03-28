@@ -69,13 +69,14 @@ const NavbarMain = ({ showDrawer, open }) => {
               onClick={(e) => {
                 showDrawer(open);
               }}
-              sx={{ color: `${colors.gray[200]}` }}
+              sx={{ color: `${colors.gray[400]}` , position: 'relative'}}
             >
               {theme.palette.mode === "dark" ? (
-                <ShoppingCart />
+                <ShoppingCart sx={{color: '#fff'}}/>
               ) : (
                 <ShoppingCartOutlined />
               )}
+              <div style={{position: "absolute" , right: '-2px',top: '1px', fontSize: '11px', background: '#ff9800', color: `#fff`, padding: '1px 4px', borderRadius: '10px'}}>1</div>
             </IconButton>
           </Stack>
         </Stack>
