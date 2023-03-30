@@ -14,7 +14,7 @@ import { CardIcon } from "./style";
 import { useNavigate } from "react-router-dom";
 import ModalWreapper from "./modal";
 
-const CardComponet = ({ name, _id, img, salePrice, quantity, data: { product } }) => {
+const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
   const theme = useTheme();
   const navigate = useNavigate()
   const colors = tokens(theme.palette.mode);
@@ -33,7 +33,7 @@ const CardComponet = ({ name, _id, img, salePrice, quantity, data: { product } }
     }}
     className="card"
     >
-    <ModalWreapper _id={_id} open={open} name={name} img={img} salePrice={salePrice} handleClose={handleClose} quantity={quantity} product={product} />        
+    <ModalWreapper _id={_id} open={open} name={name} img={img} salePrice={salePrice} handleClose={handleClose} quantity={quantity}  />        
       <CardMedia
         component="img"
         sx={{ borderRadius: 1 }}
@@ -64,9 +64,9 @@ const CardComponet = ({ name, _id, img, salePrice, quantity, data: { product } }
             </CardIcon>
           </button>
         ) : (
-          <button onClick={() => navigate("/sign-in")} className="card-btn">
+          <button onClick={() => navigate("/sign-in")} style={{background: `${colors.primary[900]}`}} className="card-btn">
             <CardIcon>
-              <ShoppingCart sx={{color: ` ${colors.gray[500]}`}} />
+              <ShoppingCart sx={{color: ` ${colors.redAccend[500]}`}} />
             </CardIcon>
           </button>
         )}
