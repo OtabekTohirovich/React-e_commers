@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { getPublicProducts } from "../api";
 import CardComponet from "../components/card";
 import ProductContext from "../context/product-context";
+import { ToastContainer, toast } from "react-toastify";
+
 import "../App.css";
 const PublicProducts = () => {
   const [data, setData] = useState();
@@ -29,7 +31,7 @@ const PublicProducts = () => {
 
 const Products = () => {
   const { items } = useContext(ProductContext);
-  console.log(items);
+  // console.log(items);
 
   return (
     <Box sx={{ marginTop: "40px" }}>
@@ -49,7 +51,20 @@ const Products = () => {
         {items?.pages?.totalPages > 1 ? <Stack spacing={2}>
           <Pagination count={items?.pages?.totalPages} />
         </Stack> : ""}
-        
+        <div>
+        <ToastContainer
+          position="top-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </div>
       </Container>
     </Box>
   );

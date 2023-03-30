@@ -26,7 +26,7 @@ export function CreateCart() {
 }
 
 export function getCart(id) {
-  return axios.get(`cart/${id}`);
+  return axios.get(`/cart/${id}`);
 }
 
 export function RemoveCart(id, data) {
@@ -37,6 +37,10 @@ export function RemoveCart(id, data) {
     })
     .then((res) => res.data)
     .catch((err) => err);
+}
+
+export function addProductToCart(id, item) {
+  return axios.post(`/cart/${id}/add`, item);
 }
 
 

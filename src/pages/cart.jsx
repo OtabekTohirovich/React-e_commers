@@ -1,11 +1,12 @@
-import { useContext } from "react";
-import CartContext from "../context/cart-context";
+import { Stack } from "@mui/material";
 
-const Cart = () => {
-  const { items } = useContext(CartContext);
-  console.log(items);
+const Cart = ({total, qty}) => {
+  console.log(total, qty);
+
   return (
-    <div>Cart</div>
+    <Stack>
+      dsfs
+    </Stack>
   )
 }
 

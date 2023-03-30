@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 import { Add, HighlightOff, LocalMall, Remove } from "@mui/icons-material";
 import { tokens } from "./theme";
+import { addProductToCart } from "../api";
+import CartContext from "../context/cart-context";
+import { toast } from "react-toastify";
 
 const ModalWreapper = ({
   _id,
@@ -18,14 +21,33 @@ const ModalWreapper = ({
   handleClose,
   quantity,
   name,
+  qty,
+  setQty
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  let [qty, setQty] = useState(1);
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  const { items, addToCart } = useContext(CartContext);
+  // console.log(items);
 
   if(qty < 1){
     setQty(1)
   }
+  if(qty >= quantity){
+    setQty(quantity)
+  }
+  const notify = () =>
+    toast.success(`🦄 Successfuly Add to cart!`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  
   const style = {
     position: "absolute",
     top: "50%",
@@ -40,6 +62,21 @@ const ModalWreapper = ({
     borderRadius: "10px",
     display: "flex",
   };
+  const handleAddCart = () =>{
+    console.log("hello");
+    addProductToCart( userId, {
+      product: `${_id}`,
+      qty: qty,
+      total: qty * salePrice,
+    }).then((data)=>{
+      addToCart(data?.data?.payload?.items)
+      // console.log(data);
+      // console.log(items);
+      notify()
+      handleClose()
+    })
+  }
+
 
   return (
     <Modal
@@ -47,6 +84,7 @@ const ModalWreapper = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
+      
       <Box sx={style}>
         <Box
           width={"50%"}
@@ -120,6 +158,7 @@ const ModalWreapper = ({
           </Typography>
 
           <Button
+            onClick={handleAddCart}
             size="large"
             variant={`${
               theme.palette.mode === "dark" ? "contained" : "outlined"

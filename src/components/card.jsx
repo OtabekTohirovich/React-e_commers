@@ -21,7 +21,13 @@ const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const user = JSON.parse(localStorage.getItem("user"));
-  const handleClose = () => setOpen(false);
+  let [qty, setQty] = React.useState(1);
+
+  
+  const handleClose = () => {
+    setOpen(false)
+    setQty(1)
+  }
 
 
   return (
@@ -33,7 +39,8 @@ const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
     }}
     className="card"
     >
-    <ModalWreapper _id={_id} open={open} name={name} img={img} salePrice={salePrice} handleClose={handleClose} quantity={quantity}  />        
+      
+    <ModalWreapper _id={_id} open={open} name={name} img={img} salePrice={salePrice} handleClose={handleClose} quantity={quantity} qty={qty} setQty={setQty} />        
       <CardMedia
         component="img"
         sx={{ borderRadius: 1 }}
