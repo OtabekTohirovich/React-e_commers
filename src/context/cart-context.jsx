@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import {  getCart } from "../api";
+import {  getUserCart } from "../api";
 
 
 const CartContext = createContext();
@@ -7,9 +7,9 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]);
   const [data,setData] = useState('');
-  const cardId = localStorage.getItem("cardId");
+  const cardId = JSON.parse(localStorage.getItem("userId"))
   useEffect(() => {
-    getCart(cardId).then(({data}) => {
+    getUserCart(cardId).then(({data}) => {
       setItems(data?.payload?.items);
     });
   }, [data]);

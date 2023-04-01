@@ -25,8 +25,9 @@ export function CreateCart() {
   return axios.post(`/cart/`)
 }
 
-export function getCart(id) {
-  return axios.get(`/cart/${id}`);
+export function getUserCart(id) {
+  let url = `/cart/${id}`;
+  return axios.get(url);
 }
 
 export function RemoveCart(id, data) {

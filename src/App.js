@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContex, useMode } from "./components/theme";
 import Navbar from "./components/navbar";
-import Sidebar from "./components/sidebar";
+import Sidebar, { SidebarMenu } from "./components/sidebar";
 import Dashboard from "./pages/dashboard";
 import { useState } from "react";
 import { PublicProducts, Products } from "./pages/products";
@@ -60,7 +60,7 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                   </Routes>
                 </main>
-                <Sidebar
+                <SidebarMenu
                   showDrawer={showDrawer}
                   open={open}
                   onClose={onClose}
@@ -94,7 +94,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
-            <Sidebar showDrawer={showDrawer} open={open} onClose={onClose} />
+            <Sidebar showDrawer={showDrawer} open={open} onClose={onClose} token={token}/>
           </div>
         </ThemeProvider>
       </ColorModeContex.Provider>

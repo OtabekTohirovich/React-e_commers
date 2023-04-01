@@ -27,8 +27,7 @@ const ModalWreapper = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const userId = JSON.parse(localStorage.getItem("userId"));
-  const { items, addToCart } = useContext(CartContext);
-  // console.log(items);
+  const { addToCart } = useContext(CartContext);
 
   if(qty < 1){
     setQty(1)
@@ -39,7 +38,7 @@ const ModalWreapper = ({
   const notify = () =>
     toast.success(`🦄 Successfuly Add to cart!`, {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
