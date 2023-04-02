@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { getPublicProducts } from "../api";
 import CardComponet from "../components/card";
 import ProductContext from "../context/product-context";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import "../App.css";
 const PublicProducts = () => {

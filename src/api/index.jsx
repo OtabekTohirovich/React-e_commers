@@ -9,8 +9,8 @@ export function signInRequest(data) {
   return axios.post("/auth/sign-in", data);
 }
 
-export function getProducts(page = 1) {
-  return axios.get(`/products?page=${page}`);
+export function getProducts() {
+  return axios.get(`/products/public`);
 }
 
 export function getPublicProducts() {

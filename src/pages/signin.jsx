@@ -41,9 +41,11 @@ const Signin = ({ handleAuth }) => {
             localStorage.setItem("cardId", data.payload._id);
           });
           console.log(data);
+          console.log(data);
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.payload));
           localStorage.setItem("userId", JSON.stringify(data.payload._id));
+          localStorage.setItem("role", JSON.stringify(data.payload.role));
           notify();
           handleAuth(data.token);
           navigate("/");

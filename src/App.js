@@ -25,8 +25,9 @@ function App() {
   const [state, setState] = useState("");
   const [open, setOpen] = useState(false);
 
-  const [states, setStates] = useState("");
   const token = localStorage.getItem("token");
+  const role = JSON.parse(localStorage.getItem("role"));
+
   // const [searchTerm, setSearchTerm] = useState("");
 
   const showDrawer = () => {
@@ -48,24 +49,45 @@ function App() {
           <ColorModeContex.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <div className="app">
-                <DefaultSidebar handleAuth={(e) => handleAuth(e)} />
-                <main className="content">
-                  <NavbarMain showDrawer={showDrawer} open={open} />
-                  <Routes>
-                    <Route path="/" element={<Products />} />
-                    <Route path="/delivery" element={<Delivery />} />
-                    <Route path="/purchases" element={<Purchases />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/profile" element={<Profile />} />
-                  </Routes>
-                </main>
-                <SidebarMenu
-                  showDrawer={showDrawer}
-                  open={open}
-                  onClose={onClose}
-                />
-              </div>
+              {role === "user" ? (
+                <div className="app">
+                  <DefaultSidebar handleAuth={(e) => handleAuth(e)} />
+                  <main className="content">
+                    <NavbarMain showDrawer={showDrawer} open={open} />
+                    <Routes>
+                      <Route path="/" element={<Products />} />
+                      <Route path="/delivery" element={<Delivery />} />
+                      <Route path="/purchases" element={<Purchases />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/profile" element={<Profile />} />
+                    </Routes>
+                  </main>
+                  <SidebarMenu
+                    showDrawer={showDrawer}
+                    open={open}
+                    onClose={onClose}
+                  />
+                </div>
+              ) : (
+                <div className="app">
+                  <DefaultSidebar handleAuth={(e) => handleAuth(e)}  role={role}/>
+                  <main className="content">
+                    <NavbarMain showDrawer={showDrawer} open={open} />
+                    <Routes>
+                      <Route path="/" element={<MainPage />} />
+                      <Route path="/delivery" element={<Delivery />} />
+                      <Route path="/purchases" element={<Purchases />} />
+                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/profile" element={<Profile />} />
+                    </Routes>
+                  </main>
+                  <SidebarMenu
+                    showDrawer={showDrawer}
+                    open={open}
+                    onClose={onClose}
+                  />
+                </div>
+              )}
             </ThemeProvider>
           </ColorModeContex.Provider>
         </CartProvider>
@@ -94,7 +116,12 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
-            <Sidebar showDrawer={showDrawer} open={open} onClose={onClose} token={token}/>
+            <Sidebar
+              showDrawer={showDrawer}
+              open={open}
+              onClose={onClose}
+              token={token}
+            />
           </div>
         </ThemeProvider>
       </ColorModeContex.Provider>
