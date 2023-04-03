@@ -83,4 +83,5 @@ const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
   );
 };
 
+
 export default CardComponet;
