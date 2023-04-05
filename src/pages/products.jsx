@@ -16,9 +16,9 @@ const PublicProducts = () => {
     });
   }, []);
   return (
-    <Box sx={{ marginTop: "40px" }}>
+    <Box >
       <Container fixed maxWidth={"1550px"}>
-        <Grid container spacing={2} gap={0}>
+        <Grid container spacing={1} >
           {data?.map((item) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
               <CardComponet {...item} />
@@ -32,12 +32,11 @@ const PublicProducts = () => {
 
 const Products = () => {
   const { items } = useContext(ProductContext);
-  // console.log(items);
 
   return (
-    <Box sx={{ marginTop: "40px" }}>
+    <Box sx={{ marginTop: {xs: 2, sm: 4, lg: 4}}}>
         <Container fixed maxWidth={"1550px"}>
-          <Grid container spacing={2} gap={0} height={"82vh"}>
+          <Grid container spacing={1}  height={"82vh"}>
             {items?.data?.map((item) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
