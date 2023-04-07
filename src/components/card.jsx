@@ -34,8 +34,8 @@ const CardComponet = ({ name, _id, img, salePrice, quantity }) => {
     sx={{
       background: `${theme.palette.mode === "dark" ? "#2d3748" : ""}`,
       maxWidth: 270,
-      padding: 1,
-      marginBottom: 2
+      padding: 1.5,
+      marginBottom: 1
     }}
     className="card"
     >

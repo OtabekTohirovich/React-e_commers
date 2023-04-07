@@ -70,7 +70,10 @@ function App() {
                 </div>
               ) : (
                 <div className="app">
-                  <DefaultSidebar handleAuth={(e) => handleAuth(e)}  role={role}/>
+                  <DefaultSidebar
+                    handleAuth={(e) => handleAuth(e)}
+                    role={role}
+                  />
                   <main className="content">
                     <NavbarMain showDrawer={showDrawer} open={open} />
                     <Routes>
@@ -95,36 +98,38 @@ function App() {
     );
   } else {
     return (
-      <ColorModeContex.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <div className="app">
-            <main className="content">
-              <Navbar showDrawer={showDrawer} open={open} />
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route
-                  path="/sign-in"
-                  element={<Signin handleAuth={handleAuth} />}
-                />
-                <Route
-                  path="/sign-up"
-                  element={<Signup handleAuth={handleAuth} />}
-                />
-                <Route path="/public-products" element={<PublicProducts />} />
-                <Route path="/faq" element={<Faq />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-            </main>
-            <Sidebar
-              showDrawer={showDrawer}
-              open={open}
-              onClose={onClose}
-              token={token}
-            />
-          </div>
-        </ThemeProvider>
-      </ColorModeContex.Provider>
+      <ProductProvider>
+        <ColorModeContex.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <div className="app">
+              <main className="content">
+                <Navbar showDrawer={showDrawer} open={open} />
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route
+                    path="/sign-in"
+                    element={<Signin handleAuth={handleAuth} />}
+                  />
+                  <Route
+                    path="/sign-up"
+                    element={<Signup handleAuth={handleAuth} />}
+                  />
+                  <Route path="/public-products" element={<PublicProducts />} />
+                  <Route path="/faq" element={<Faq />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </main>
+              <Sidebar
+                showDrawer={showDrawer}
+                open={open}
+                onClose={onClose}
+                token={token}
+              />
+            </div>
+          </ThemeProvider>
+        </ColorModeContex.Provider>
+      </ProductProvider>
     );
   }
 }

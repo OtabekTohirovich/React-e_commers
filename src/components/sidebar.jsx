@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box,  Container, Stack, Typography, useTheme } from "@mui/material";
 import { tokens } from "./theme";
 import React, { useContext } from "react";
 import { Drawer, Space } from "antd";
@@ -6,6 +6,8 @@ import { Button } from "@mui/material";
 import { HighlightOff } from "@mui/icons-material";
 import Cart from "../pages/cart";
 import CartContext from "../context/cart-context";
+import cartimg from "../assets/logo512.png.ico";
+
 
 const Sidebar = ({ showDrawer, onClose, open, token }) => {
   const theme = useTheme();
@@ -32,7 +34,11 @@ const Sidebar = ({ showDrawer, onClose, open, token }) => {
         open={open}
         style={{ background: ` ${colors.greenAccend[100]}` }}
       >
-        ss
+       <Stack direction={'column'}>
+       <img style={{width:"40%", height: "18%", margin:'auto'}} src={cartimg} alt="" />
+        <Typography sx={{margin: 'auto'}} variant="h3">Your cart is empty</Typography>
+        <Typography pt={2} sx={{margin: 'auto' , width: '70%', textAlign: 'center'}}>There is nothing in your shopping cart. Let's buy something first</Typography>
+       </Stack>
       </Drawer>
     </>
   );
@@ -66,11 +72,15 @@ export const SidebarMenu = ({ showDrawer, onClose, open, token }) => {
         open={open}
         style={{ background: ` ${colors.greenAccend[100]}` }}
       >
-        {items?.map((item) => (
+        {items.length ? items?.map((item) => (
           <Box key={item._id}>
             <Cart item={item} />
           </Box>
-        ))}
+        )) :  <Stack direction={'column'}>
+        <img style={{width:"40%", height: "18%", margin:'auto'}} src={cartimg} alt="" />
+         <Typography sx={{margin: 'auto'}} variant="h3">Your cart is empty</Typography>
+         <Typography pt={2} sx={{margin: 'auto' , width: '70%', textAlign: 'center'}}>There is nothing in your shopping cart. Let's buy something first</Typography>
+        </Stack>}
       </Drawer>
     </>
   );

@@ -9,17 +9,12 @@ import { ToastContainer } from "react-toastify";
 import "../App.css";
 import CardEdit from "../components/cardedit";
 const PublicProducts = () => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    getPublicProducts().then((data) => {
-      setData(data.data.data);
-    });
-  }, []);
+  const { items } = useContext(ProductContext);
   return (
     <Box >
       <Container fixed maxWidth={"1550px"}>
-        <Grid container spacing={1} >
-          {data?.map((item) => (
+        <Grid container spacing={2} >
+          {items?.data?.map((item) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
               <CardComponet {...item} />
             </Grid>
@@ -34,9 +29,9 @@ const Products = () => {
   const { items } = useContext(ProductContext);
 
   return (
-    <Box sx={{ marginTop: {xs: 2, sm: 4, lg: 4}}}>
+    <Box sx={{ marginTop: {xs: 2, sm: 4, lg: 4, xl: 5}}}>
         <Container fixed maxWidth={"1550px"}>
-          <Grid container spacing={1}  height={"82vh"}>
+          <Grid container spacing={2}  height={"82vh"}>
             {items?.data?.map((item) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
@@ -74,13 +69,13 @@ const EditProducts = () => {
   const { items } = useContext(ProductContext);
 
   return (
-    <Box sx={{ marginTop: "40px" }}>
+    <Box sx={{ marginTop: {xs: 2, sm: 4, lg: 4, xl: 5}}}>
         <Container fixed maxWidth={"1550px"}>
-          <Grid container spacing={2} gap={0} height={"82vh"}>
+          <Grid container spacing={2}  height={"82vh"}>
             {items?.data?.map((item) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
-                  <CardEdit {...item} data={item} />
+                  <CardComponet {...item} data={item} />
                 </Grid>
               );
             })}
