@@ -3,9 +3,13 @@ import { tokens } from "./theme";
 import logo from "../assets/logocha.svg";
 import logodark from "../assets/brand.png";
 import {
+  AddCircle,
+  Create,
+  Grade,
   LocalMall,
   Logout,
   Sell,
+  Settings,
   SettingsPhone,
   ShoppingCart,
 } from "@mui/icons-material";
@@ -25,10 +29,10 @@ const DefaultSidebar = ({ handleAuth, role }) => {
     { link: "/contact", name: "Contact", icon: <SettingsPhone /> },
   ];
   const AdminData = [
-    { link: "/", name: "Products" },
-    { link: "/delivery", name: "Delivery" },
-    { link: "/purchases", name: "Purchases" },
-    { link: "/contact", name: "Contact" },
+    { link: "/", name: "Products", icon: <Settings/> },
+    { link: "/create-product", name: "Createe", icon: <Create/> },
+    { link: "/users-orders", name: "Orders", icon: <Grade/> },
+    { link: "/create-category", name: "Category", icon: <AddCircle/> },
   ];
 
   return (

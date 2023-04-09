@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
-import { getPublicProducts } from "../api";
+import { useContext } from "react";
 import CardComponet from "../components/card";
 import ProductContext from "../context/product-context";
 import { ToastContainer } from "react-toastify";
 
 import "../App.css";
-import CardEdit from "../components/cardedit";
+import EditCardComponet from "../components/cardedit";
 const PublicProducts = () => {
   const { items } = useContext(ProductContext);
   return (
@@ -75,7 +74,7 @@ const EditProducts = () => {
             {items?.data?.map((item) => {
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item._id}>
-                  <CardComponet {...item} data={item} />
+                  <EditCardComponet {...item} data={item} />
                 </Grid>
               );
             })}

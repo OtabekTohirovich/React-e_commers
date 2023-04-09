@@ -1,5 +1,5 @@
 import Axios from "axios";
-const baseURL = "http://localhost:9999"
+const baseURL = "https://shopzone.onrender.com"
 
 const axios = Axios.create({
   baseURL,
