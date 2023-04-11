@@ -1,18 +1,11 @@
 import React, { useContext, useState } from "react";
-import {
-  Box,
-  IconButton,
-  Modal,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import { HighlightOff} from "@mui/icons-material";
+import { Box, IconButton, Modal, Typography, useTheme } from "@mui/material";
+import { HighlightOff } from "@mui/icons-material";
 import { tokens } from "./theme";
 import { addProductToCart } from "../api";
 import CartContext from "../context/cart-context";
 import { toast } from "react-toastify";
-import { Button, Form, Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { ChangeEvent } from "react";
 
 const ModalWreapperedit = ({
   _id,
@@ -24,11 +17,18 @@ const ModalWreapperedit = ({
   name,
   qty,
   setQty,
+  price,
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const userId = JSON.parse(localStorage.getItem("userId"));
   const { addToCart } = useContext(CartContext);
+  const [file, setFile] = useState();
+  const [salePrices, setSalePrices] = useState(salePrice);
+  const [sale, setSale] = useState(salePrice);
+  const [quantitys, setQuantity] = useState(quantity);
+  const [title, setTitle] = useState(name);
+  const [state,  setState] = useState({name: '', viewers: ''})
 
   if (qty < 1) {
     setQty(1);
@@ -62,20 +62,23 @@ const ModalWreapperedit = ({
     borderRadius: "10px",
     display: "flex",
   };
-  const formItemLayout = {
-    labelCol: { span: 6 },
-    wrapperCol: { span: 14 },
-  };
-  const normFile = (e) => {
-    console.log('Upload event:', e);
-    if (Array.isArray(e)) {
-      return e;
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    if (e.target.files) {
+      setFile(e.target.files[0]);
     }
-    return e?.fileList;
+    console.log(e.target.files[0]);
   };
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-  };
+
+  const changeHandler = e =>{
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
+  const addformhandler = e =>{
+    e.preventDefault()
+    // const data = { name: state.name, viewers: state.viewers }
+    console.log(state);
+    // setState({ name: '', viewers: '' })
+  }
 
   return (
     <Modal
@@ -109,28 +112,42 @@ const ModalWreapperedit = ({
             <HighlightOff />
           </IconButton>
 
-          <Form
-            name="validate_other"
-            {...formItemLayout}
-            onFinish={onFinish}
-            initialValues={{
-              "input-number": 3,
-              "checkbox-group": ["A", "B"],
-              rate: 3.5,
-            }}
-            style={{ maxWidth: 600 }}
-          >
-            <Form.Item
-              name="upload"
-              label="Upload"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-            >
-              <Upload name="logo" listType="picture">
-                <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
-            </Form.Item>
-          </Form>
+          <form onSubmit={addformhandler}>
+            <div>
+              <input type="file" name="img"  onChange={handleFileChange} />
+
+              <div>{file && `${file.name} - ${file.type}`}</div>
+            </div>
+
+            <div>
+              <label>Product name:</label>
+              <input
+                type="text"
+                value={title}
+                onChange={changeHandler}
+                name="name"
+              />
+            </div>
+            <div>
+              <label>Price:</label>
+              <input
+                type="number"
+                value={sale}
+                onChange={changeHandler}
+                name="salePrice"
+              />
+            </div>
+              <input
+                type="number"
+                placeholder="Nechi marotaba Ko'rilgan ?"
+                onChange={changeHandler}
+                name="viewers"
+                value={sale}
+              />
+              <button type="submit">
+                Qo'shish
+              </button>
+          </form>
         </Box>
       </Box>
     </Modal>

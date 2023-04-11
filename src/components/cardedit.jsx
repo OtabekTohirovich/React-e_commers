@@ -10,7 +10,7 @@ import { DeleteForever, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ModalWreapperedit from "./modal-edit";
 
-const EditCardComponet = ({ name, _id, img, salePrice, quantity }) => {
+const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discription  }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
@@ -45,6 +45,9 @@ const EditCardComponet = ({ name, _id, img, salePrice, quantity }) => {
           quantity={quantity}
           qty={qty}
           setQty={setQty}
+          price={price}
+          discription={discription}
+
         />
       ) : (
         ""
