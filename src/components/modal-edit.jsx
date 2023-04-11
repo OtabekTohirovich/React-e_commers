@@ -72,6 +72,7 @@ const ModalWreapperedit = ({
 
   const changeHandler = e =>{
     setState({ ...state, [e.target.name]: e.target.value })
+
   }
   const addformhandler = e =>{
     e.preventDefault()

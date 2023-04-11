@@ -45,4 +45,10 @@ export function addProductToCart(id, item) {
 }
 
 
+export function getAccount() {
+  let url = `/auth/profile`;
+  return axios.get(url);
+}
+
+
 // products/public
