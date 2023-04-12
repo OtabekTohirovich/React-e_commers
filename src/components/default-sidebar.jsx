@@ -14,6 +14,8 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import ModalWreapperedit from "./modal-edit";
+import EditCardComponet from "./cardedit";
 
 const DefaultSidebar = ({ handleAuth, role }) => {
   const theme = useTheme();
@@ -57,6 +59,9 @@ const DefaultSidebar = ({ handleAuth, role }) => {
           image={theme.palette.mode === "dark" ? logodark : logo}
         />
       </div>
+      {role === "admin" ? 
+        <EditCardComponet/> : '' 
+      }
       {role === "admin"
         ? AdminData.map((link) => (
             <Link to={link.link} key={link.name}>

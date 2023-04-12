@@ -1,11 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, IconButton, Modal, Typography, useTheme } from "@mui/material";
 import { HighlightOff } from "@mui/icons-material";
 import { tokens } from "./theme";
-import { addProductToCart } from "../api";
-import CartContext from "../context/cart-context";
+import { CreateProductRequest, addProductToCart, getCategorys, updateProduct } from "../api";
 import { toast } from "react-toastify";
 import { ChangeEvent } from "react";
+import {
+  Form,
+  Img,
+  ImgWrapper,
+  InputFile,
+  InputItem,
+  Label,
+  LabelFile,
+  Select,
+  UploadImg,
+} from "./style";
+import fileUpload from "./fileupload";
+import InputField from "./input-feild";
+import { Textarea } from "./styles-input";
 
 const ModalWreapperedit = ({
   _id,
@@ -21,40 +34,36 @@ const ModalWreapperedit = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const userId = JSON.parse(localStorage.getItem("userId"));
-  const { addToCart } = useContext(CartContext);
-  const [file, setFile] = useState();
-  const [salePrices, setSalePrices] = useState(salePrice);
-  const [sale, setSale] = useState(salePrice);
-  const [quantitys, setQuantity] = useState(quantity);
-  const [title, setTitle] = useState(name);
-  const [state,  setState] = useState({name: '', viewers: ''})
+  const [product, setProduct] = useState({
+    name: "",
+    price: null,
+    salePrice: null,
+    categoryId: "",
+    description: "",
+  });
+  const [categorys, setCategorys] = useState([]);
 
-  if (qty < 1) {
-    setQty(1);
-  }
-  if (qty >= quantity) {
-    setQty(quantity);
-  }
-  const notify = () =>
-    toast.success(`🦄 Successfuly Add to cart!`, {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+  useEffect(() => {
+    getCategorys()
+      .then((data) => {
+        setCategorys(data?.data?.payload);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
+  console.log(categorys);
+  const inputHandler = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "500px",
-    height: "400px",
+    width: "800px",
+    height: "600px",
     bgcolor: "background.paper",
     boxShadow: 24,
     border: `1px solid ${colors.gray[300]}`,
@@ -62,24 +71,28 @@ const ModalWreapperedit = ({
     borderRadius: "10px",
     display: "flex",
   };
-  const handleFileChange = (e) => {
+
+  const formHandler = async (e) => {
     e.preventDefault();
-    if (e.target.files) {
-      setFile(e.target.files[0]);
+    try {
+      const formData = new FormData();
+      for (const key in product) {
+        formData.append(key, product[key]);
+      }
+      formData.append("img", e.target.img.files[0]);
+
+      console.log(formData);
+      const response = await CreateProductRequest(formData);
+      // setOpen(false);
+      // Toast.fire({
+      //   icon: "success",
+      //   title: "Product has created",
+      // });
+      // changeData(product.name)
+    } catch (error) {
+      console.log(error);
     }
-    console.log(e.target.files[0]);
   };
-
-  const changeHandler = e =>{
-    setState({ ...state, [e.target.name]: e.target.value })
-
-  }
-  const addformhandler = e =>{
-    e.preventDefault()
-    // const data = { name: state.name, viewers: state.viewers }
-    console.log(state);
-    // setState({ name: '', viewers: '' })
-  }
 
   return (
     <Modal
@@ -112,43 +125,93 @@ const ModalWreapperedit = ({
           >
             <HighlightOff />
           </IconButton>
-
-          <form onSubmit={addformhandler}>
-            <div>
-              <input type="file" name="img"  onChange={handleFileChange} />
-
-              <div>{file && `${file.name} - ${file.type}`}</div>
-            </div>
-
-            <div>
-              <label>Product name:</label>
-              <input
-                type="text"
-                value={title}
-                onChange={changeHandler}
+          <Form onSubmit={formHandler}>
+            <UploadImg>
+              <ImgWrapper>
+                <Img id="productimg" src="" alt="" />
+              </ImgWrapper>
+              <div>
+                <InputFile
+                  type="file"
+                  id="product_img_input"
+                  name="img"
+                  accept="image/*"
+                  onChange={(e) => fileUpload(e)}
+                />
+                <LabelFile
+                  style={{
+                    borderRadius: "5px",
+                    background: `${colors.redAccend[400]}`,
+                    color: "#fff",
+                    padding: " 7px 15px",
+                    border: `1px solid ${colors.redAccend[400]}`,
+                    cursor: "pointer",
+                  }}
+                  className="btn btn-orange"
+                  htmlFor="product_img_input"
+                >
+                  Upload image
+                </LabelFile>
+              </div>
+            </UploadImg>
+            <Box>
+              <InputField
+                title="Name"
                 name="name"
+                inputType="text"
+                onChange={inputHandler}
               />
-            </div>
-            <div>
-              <label>Price:</label>
-              <input
-                type="number"
-                value={sale}
-                onChange={changeHandler}
+              <InputField
+                title="Price"
+                name="price"
+                inputType="number"
+                onChange={inputHandler}
+              />
+              <InputField
+                title="SalePrice"
                 name="salePrice"
+                inputType="number"
+                onChange={inputHandler}
               />
-            </div>
-              <input
-                type="number"
-                placeholder="Nechi marotaba Ko'rilgan ?"
-                onChange={changeHandler}
-                name="viewers"
-                value={sale}
-              />
-              <button type="submit">
-                Qo'shish
-              </button>
-          </form>
+              <InputItem>
+                <Label> Category</Label>
+                <Select name="categoryId" onChange={inputHandler}>
+                  {categorys?.map((e) => {
+                    return (
+                      <option key={e._id} value={e._id}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
+                </Select>
+              </InputItem>
+              <InputItem>
+                <Label>Description</Label>
+                <Textarea
+                  name="description"
+                  onChange={inputHandler}
+                  id=""
+                ></Textarea>
+              </InputItem>
+              <div>
+                <button
+                  type="submit"
+                  style={{
+                    marginLeft: "35%",
+                    border: "1px solid",
+                    borderRadius: "5px",
+                    background: `${colors.redAccend[400]}`,
+                    color: "#fff",
+                    padding: " 7px 20px",
+                    border: `1px solid ${colors.redAccend[400]}`,
+                    cursor: "pointer",
+                  }}
+                >
+                  Create
+                </button>
+              </div>
+            </Box>
+          </Form>
         </Box>
       </Box>
     </Modal>

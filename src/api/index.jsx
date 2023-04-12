@@ -22,7 +22,7 @@ export function getProduct(id) {
 }
 
 export function CreateCart() {
-  return axios.post(`/cart/`)
+  return axios.post(`/cart/`);
 }
 
 export function getUserCart(id) {
@@ -33,8 +33,8 @@ export function getUserCart(id) {
 export function RemoveCart(id, data) {
   return axios
     .put(`/cart/${id}/remove`, {
-      id:id,
-      items:data
+      id: id,
+      items: data,
     })
     .then((res) => res.data)
     .catch((err) => err);
@@ -44,11 +44,22 @@ export function addProductToCart(id, item) {
   return axios.post(`/cart/${id}/add`, item);
 }
 
-
 export function getAccount() {
   let url = `/auth/profile`;
   return axios.get(url);
 }
 
+export function updateProduct(id, query) {
+  let url = `/products/${id}/edit`;
+  return axios.put(url, query);
+}
 
 // products/public
+
+export function getCategorys() {
+  return axios.get(`/categories`);
+}
+
+export function CreateProductRequest(formData) {
+  axios.post("/products", formData);
+}
