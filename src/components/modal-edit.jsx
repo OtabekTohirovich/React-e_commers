@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Box, IconButton, Modal, Typography, useTheme } from "@mui/material";
 import { HighlightOff } from "@mui/icons-material";
 import { tokens } from "./theme";
-import { CreateProductRequest, addProductToCart, getCategorys, updateProduct } from "../api";
+import { createProductRequest, addProductToCart, getCategorys, updateProduct } from "../api";
 import { toast } from "react-toastify";
 import { ChangeEvent } from "react";
 import {
@@ -19,6 +19,7 @@ import {
 import fileUpload from "./fileupload";
 import InputField from "./input-feild";
 import { Textarea } from "./styles-input";
+import ProductContext from "../context/product-context";
 
 const ModalWreapperedit = ({
   _id,
@@ -34,6 +35,7 @@ const ModalWreapperedit = ({
 }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [use, setUse]= useState()
   const [product, setProduct] = useState({
     name: "",
     price: null,
@@ -51,7 +53,6 @@ const ModalWreapperedit = ({
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(categorys);
   const inputHandler = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -71,28 +72,29 @@ const ModalWreapperedit = ({
     borderRadius: "10px",
     display: "flex",
   };
+  const { items, changeData } = useContext(ProductContext);
+  // console.log(items);
 
-  const formHandler = async (e) => {
-    e.preventDefault();
+  const formHandler = (e) => {
     try {
+      e.preventDefault();
       const formData = new FormData();
       for (const key in product) {
         formData.append(key, product[key]);
       }
-      formData.append("img", e.target.img.files[0]);
-
-      console.log(formData);
-      const response = await CreateProductRequest(formData);
-      // setOpen(false);
-      // Toast.fire({
-      //   icon: "success",
-      //   title: "Product has created",
-      // });
-      // changeData(product.name)
+      formData.append("img", e.target.img.files[0]); 
+      setUse(formData)     
+      
     } catch (error) {
       console.log(error);
     }
   };
+
+  // useEffect(() => {
+  //   createProductRequest().then((data) => {
+  //     setData(data.data.payload)
+  //   });
+  // }, [formHandler]);
 
   return (
     <Modal

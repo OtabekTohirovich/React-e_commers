@@ -60,6 +60,6 @@ export function getCategorys() {
   return axios.get(`/categories`);
 }
 
-export function CreateProductRequest(formData) {
-  axios.post("/products", formData);
+export function createpro(formData) {
+  axios.post(`/products`, formData)
 }

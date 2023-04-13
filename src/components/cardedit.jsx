@@ -21,7 +21,6 @@ const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discript
   const token = localStorage.getItem("token");
   const handleClose = () => {
     setOpen(false);
-    setQty(1);
   };
 
   return (
