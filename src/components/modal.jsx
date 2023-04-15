@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Button,
@@ -69,7 +69,6 @@ const ModalWreapper = ({
       total: qty * salePrice,
     }).then((data)=>{
       addToCart(data?.data?.payload?.items)
-      // console.log(data);
       // console.log(items);
       notify()
       handleClose()
@@ -155,18 +154,18 @@ const ModalWreapper = ({
           <Typography variant="h5" p={3}>
             In stock: <span style={{ fontWeight: "bold" }}>{quantity - qty}</span>
           </Typography>
-
           <Button
-            onClick={handleAddCart}
-            size="large"
-            variant={`${
-              theme.palette.mode === "dark" ? "contained" : "outlined"
-            }`}
-            color="secondary"
-            sx={{ textTransform: "capitalize" }}
-          >
-            Add to <LocalMall />
-          </Button>
+          onClick={handleAddCart}
+          size="large"
+          variant={`${
+            theme.palette.mode === "dark" ? "contained" : "outlined"
+          }`}
+          color="secondary"
+          sx={{ textTransform: "capitalize" }}
+        >
+          Add to <LocalMall />
+        </Button>
+          
           <IconButton
             onClick={handleClose}
             sx={{

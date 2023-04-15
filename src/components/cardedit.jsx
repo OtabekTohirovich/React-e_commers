@@ -9,20 +9,21 @@ import "../App.css";
 import { DeleteForever, Edit } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ModalWreapperedit from "./modal-edit";
+import { ApiForImg } from "../utils/axios";
+import axios from "axios";
 
 const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discription  }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
-  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const user = JSON.parse(localStorage.getItem("user"));
   let [qty, setQty] = React.useState(1);
   const token = localStorage.getItem("token");
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <Card
       sx={{

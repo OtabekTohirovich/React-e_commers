@@ -32,7 +32,8 @@ const Signup = ({ handleAuth }) => {
         localStorage.setItem("token", data.data.token);
         localStorage.setItem("user", JSON.stringify(data.data.user));
         localStorage.setItem("userId", JSON.stringify(data.data.user._id));
-        handleAuth(data.token);
+        localStorage.setItem("role", JSON.stringify(data.data.user.role));
+        handleAuth(data.data.token);
         navigate("/");
       }
     })

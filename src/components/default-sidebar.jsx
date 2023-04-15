@@ -4,7 +4,7 @@ import logo from "../assets/logocha.svg";
 import logodark from "../assets/brand.png";
 import {
   AddCircle,
-  Create,
+  AutoFixHigh,
   Grade,
   LocalMall,
   Logout,
@@ -14,10 +14,12 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import ModalWreapperedit from "./modal-edit";
-import EditCardComponet from "./cardedit";
+
+import CreateProduct from "./create-product";
+import { useState } from "react";
 
 const DefaultSidebar = ({ handleAuth, role }) => {
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const ClearLocal = () => {
@@ -31,11 +33,16 @@ const DefaultSidebar = ({ handleAuth, role }) => {
     { link: "/contact", name: "Contact", icon: <SettingsPhone /> },
   ];
   const AdminData = [
-    { link: "/", name: "Products", icon: <Settings/> },
-    { link: "/create-product", name: "Createe", icon: <Create/> },
-    { link: "/users-orders", name: "Orders", icon: <Grade/> },
-    { link: "/create-category", name: "Category", icon: <AddCircle/> },
+    { link: "/", name: "Products", icon: <Settings /> },
+    { link: "/users-orders", name: "Orders", icon: <Grade /> },
+    { link: "/create-category", name: "Category", icon: <AddCircle /> },
   ];
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const opens = () => {
+    setOpen(true);
+  };
 
   return (
     <Stack
@@ -59,9 +66,7 @@ const DefaultSidebar = ({ handleAuth, role }) => {
           image={theme.palette.mode === "dark" ? logodark : logo}
         />
       </div>
-      {role === "admin" ? 
-        <EditCardComponet/> : '' 
-      }
+
       {role === "admin"
         ? AdminData.map((link) => (
             <Link to={link.link} key={link.name}>
@@ -105,7 +110,30 @@ const DefaultSidebar = ({ handleAuth, role }) => {
               </button>
             </Link>
           ))}
+      {role === "admin" ? (
+        <button
+          onClick={opens}
+          style={{
+            width: "100%",
+            padding: "10px",
+            textAlign: "start",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            background: `${colors.gray[300]}`,
+            border: `1px solid ${colors.gray[300]}`,
+            marginTop: "5px",
+            color: `${colors.gray[100]}`,
+            cursor: "pointer",
+          }}
+        >
+          <Typography variant="h5"> Createe </Typography> <AutoFixHigh />
+        </button>
+      ) : (
+        ""
+      )}
 
+      <CreateProduct open={open} handleClose={handleClose} />
       <button
         style={{
           width: "100px",

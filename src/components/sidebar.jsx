@@ -1,4 +1,4 @@
-import { Box,  Container, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import { tokens } from "./theme";
 import React, { useContext } from "react";
 import { Drawer, Space } from "antd";
@@ -72,7 +72,7 @@ export const SidebarMenu = ({ showDrawer, onClose, open, token }) => {
         open={open}
         style={{ background: ` ${colors.greenAccend[100]}` }}
       >
-        {items.length ? items?.map((item) => (
+        {items?.length ? items?.map((item) => (
           <Box key={item._id}>
             <Cart item={item} />
           </Box>

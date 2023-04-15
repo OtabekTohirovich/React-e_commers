@@ -1,4 +1,4 @@
-import axios from "../utils/axios";
+import axios, { ApiForImg } from "../utils/axios";
 
 // auth
 export function signUpRequest(data) {
@@ -60,6 +60,14 @@ export function getCategorys() {
   return axios.get(`/categories`);
 }
 
-export function createpro(formData) {
-  axios.post(`/products`, formData)
+export function createNewProduct(quary) {
+  let url = `/products/`;
+  return axios.post(url, quary);
+}
+
+export function GetImg(url) {
+  ApiForImg.get(url, {
+    headers: {
+      'Authentication': `Bearer ${localStorage.getItem("token")}`
+    }})
 }

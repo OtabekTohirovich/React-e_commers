@@ -66,7 +66,7 @@ const Products = () => {
 
 const EditProducts = () => {
   const { items } = useContext(ProductContext);
-  console.log(items);
+  // console.log(items);
 
   return (
     <Box sx={{ marginTop: {xs: 2, sm: 4, lg: 4, xl: 5}}}>

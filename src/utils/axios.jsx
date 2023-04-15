@@ -1,9 +1,14 @@
 import Axios from "axios";
 const baseURL = "https://shopzone.onrender.com"
-
+const baseImgURL = ""
 const axios = Axios.create({
   baseURL,
 });
+
+const ApiForImg = Axios.create({
+  baseImgURL,
+});
+
 axios.interceptors.request.use(
   function (config) {
     config.headers.authorization = localStorage.getItem("token")
@@ -16,4 +21,4 @@ axios.interceptors.request.use(
   }
 );
 
-export default axios;
+export { ApiForImg, axios as default };

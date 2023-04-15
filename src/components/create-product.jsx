@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Box, IconButton, Modal, Typography, useTheme } from "@mui/material";
 import { HighlightOff } from "@mui/icons-material";
-import { tokens } from "./theme";
-import { toast } from "react-toastify";
 import {
   Form,
   Img,
@@ -17,23 +15,13 @@ import {
 import fileUpload from "./fileupload";
 import InputField from "./input-feild";
 import { Textarea } from "./styles-input";
+import { tokens } from "./theme";
+import { createNewProduct, getCategorys } from "../api";
 import ProductContext from "../context/product-context";
-
-const ModalWreapperedit = ({
-  _id,
-  open,
-  img,
-  salePrice,
-  handleClose,
-  quantity,
-  name,
-  qty,
-  setQty,
-  price,
-}) => {
+// import ProductContext from "../context/product-context";
+const CreateProduct = ({ open, handleClose }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [use, setUse]= useState()
   const [product, setProduct] = useState({
     name: "",
     price: null,
@@ -41,14 +29,15 @@ const ModalWreapperedit = ({
     categoryId: "",
     description: "",
   });
+  const [categorys, setCategorys] = useState([]);
 
-  // useEffect(() => {
-  //   getCategorys()
-  //     .then((data) => {
-  //       setCategorys(data?.data?.payload);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    getCategorys()
+      .then((data) => {
+        setCategorys(data?.data?.payload);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const inputHandler = (e) => {
     e.preventDefault();
@@ -69,8 +58,8 @@ const ModalWreapperedit = ({
     borderRadius: "10px",
     display: "flex",
   };
-  const { items, changeData } = useContext(ProductContext);
-  // console.log(items);
+  const { changeData } = useContext(ProductContext);
+  //   console.log(items);
 
   const formHandler = (e) => {
     try {
@@ -79,15 +68,16 @@ const ModalWreapperedit = ({
       for (const key in product) {
         formData.append(key, product[key]);
       }
-      formData.append("img", e.target.img.files[0]); 
-      setUse(formData)   
-      
+      formData.append("img", e.target.img.files[0]);
+      createNewProduct(formData).then((data) => {
+        console.log(data);
+        changeData(data.data.payload);
+        handleClose();
+      });
     } catch (error) {
       console.log(error);
     }
   };
-
- 
 
   return (
     <Modal
@@ -106,7 +96,7 @@ const ModalWreapperedit = ({
           }}
         >
           <Typography variant="h2" fontWeight={"bold"}>
-            Edit Product
+            Create Product
           </Typography>
 
           <IconButton
@@ -135,11 +125,11 @@ const ModalWreapperedit = ({
                 />
                 <LabelFile
                   style={{
+                    border: `1px solid ${colors.redAccend[400]}`,
                     borderRadius: "5px",
                     background: `${colors.redAccend[400]}`,
                     color: "#fff",
                     padding: " 7px 15px",
-                    border: `1px solid ${colors.redAccend[400]}`,
                     cursor: "pointer",
                   }}
                   className="btn btn-orange"
@@ -170,7 +160,7 @@ const ModalWreapperedit = ({
               />
               <InputItem>
                 <Label> Category</Label>
-                {/* <Select name="categoryId" onChange={inputHandler}>
+                <Select name="categoryId" onChange={inputHandler}>
                   {categorys?.map((e) => {
                     return (
                       <option key={e._id} value={e._id}>
@@ -178,7 +168,7 @@ const ModalWreapperedit = ({
                       </option>
                     );
                   })}
-                </Select> */}
+                </Select>
               </InputItem>
               <InputItem>
                 <Label>Description</Label>
@@ -193,7 +183,6 @@ const ModalWreapperedit = ({
                   type="submit"
                   style={{
                     marginLeft: "35%",
-                    border: "1px solid",
                     borderRadius: "5px",
                     background: `${colors.redAccend[400]}`,
                     color: "#fff",
@@ -213,4 +202,4 @@ const ModalWreapperedit = ({
   );
 };
 
-export default ModalWreapperedit;
+export default CreateProduct;

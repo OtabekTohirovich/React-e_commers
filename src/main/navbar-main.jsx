@@ -28,7 +28,7 @@ const NavbarMain = ({ showDrawer, open }) => {
 
   };
   data()
-  console.log(result);
+  // console.log(result);
 
   return (
     <Box
