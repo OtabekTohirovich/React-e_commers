@@ -71,3 +71,9 @@ export function GetImg(url) {
       'Authentication': `Bearer ${localStorage.getItem("token")}`
     }})
 }
+
+
+export function deleteProduct(id) {
+  let url = `/products/${id}/delete`;
+  return axios.delete(url);
+}

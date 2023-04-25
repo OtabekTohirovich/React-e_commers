@@ -11,8 +11,12 @@ import { useNavigate } from "react-router-dom";
 import ModalWreapperedit from "./modal-edit";
 import { ApiForImg } from "../utils/axios";
 import axios from "axios";
+import { deleteProduct } from "../api";
+import ProductContext from "../context/product-context";
 
 const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discription  }) => {
+  const { items, changeData } = React.useContext(ProductContext);
+
   const theme = useTheme();
   const navigate = useNavigate();
   const colors = tokens(theme.palette.mode);
@@ -24,6 +28,12 @@ const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discript
   const handleClose = () => {
     setOpen(false);
   };
+  const handleDelete =()=>{
+    deleteProduct(_id).then((data)=>{
+      console.log(data);
+      changeData(data.data.payload)
+    })
+  }
   return (
     <Card
       sx={{
@@ -77,7 +87,7 @@ const EditCardComponet = ({ name, _id, img, salePrice, quantity, price, discript
           <IconButton onClick={handleOpen} sx={{border:" 1px solid"}}>
             <Edit />
           </IconButton>
-          <IconButton sx={{border:" 1px solid"}}>
+          <IconButton sx={{border:" 1px solid"}} onClick={handleDelete}>
             <DeleteForever />
           </IconButton>
       </CardActions>

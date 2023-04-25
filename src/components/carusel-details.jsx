@@ -1,5 +1,7 @@
 import { Box, CardContent, CardMedia, Stack, useTheme } from "@mui/material";
 import { tokens } from "./theme";
+import image from "../assets/maxsulot.jpg";
+
 
 const CaruselDetails = ({ item }) => {
   const theme = useTheme();
@@ -23,9 +25,9 @@ const CaruselDetails = ({ item }) => {
           component="img"
           height="300px"
           width={"300px"}
-          image={item?.img}
+          image={item?.img ? item?.img : image}
           alt="Paella dish"
-          sx={{ objectFit: "cover" }}
+          sx={{ objectFit: "cover", border: '1px solid',  borderRadius: '10px' }}
         />
       </CardContent>
     </Stack>
