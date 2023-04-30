@@ -35,3 +35,12 @@ a {
 .visible {
   visibility: visible !important;
 }
+
+.active {
+  background-color: #f96435;
+  color: #fff !important;
+}
+.changehover:hover {
+  color: #fff !important;
+  background-color: #f96435;
+}

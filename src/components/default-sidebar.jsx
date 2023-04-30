@@ -13,14 +13,16 @@ import {
   SettingsPhone,
   ShoppingCart,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import CreateProduct from "./create-product";
 import { useState } from "react";
 
 const DefaultSidebar = ({ handleAuth, role }) => {
   const [open, setOpen] = useState(false);
+  const [links, setLinks] = useState(false);
   const theme = useTheme();
+
   const colors = tokens(theme.palette.mode);
   const ClearLocal = () => {
     localStorage.clear();
@@ -37,6 +39,14 @@ const DefaultSidebar = ({ handleAuth, role }) => {
     { link: "/users-orders", name: "Orders", icon: <Grade /> },
     { link: "/create-category", name: "Category", icon: <AddCircle /> },
   ];
+
+  const colorslink = {
+    background: `${colors.blueAccend[500]}`,
+  };
+  const nocolorslink = {
+    background: `${colors.gray[300]}`,
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -69,7 +79,7 @@ const DefaultSidebar = ({ handleAuth, role }) => {
 
       {role === "admin"
         ? AdminData.map((link) => (
-            <Link to={link.link} key={link.name}>
+            <NavLink to={link.link} key={link.name}>
               <button
                 style={{
                   width: "100%",
@@ -87,28 +97,27 @@ const DefaultSidebar = ({ handleAuth, role }) => {
               >
                 <Typography variant="h5"> {link.name} </Typography> {link.icon}
               </button>
-            </Link>
+            </NavLink>
           ))
         : Data.map((link) => (
-            <Link to={link.link} key={link.name}>
-              <button
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  textAlign: "start",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                  background: `${colors.gray[300]}`,
-                  border: `1px solid ${colors.gray[300]}`,
-                  marginTop: "5px",
-                  color: `${colors.gray[100]}`,
-                  cursor: "pointer",
-                }}
-              >
-                <Typography variant="h5"> {link.name} </Typography> {link.icon}
-              </button>
-            </Link>
+            <NavLink
+              to={link.link}
+              key={link.name}
+              className="changehover"
+              style={{
+                width: "100%",
+                padding: "10px 25px",
+                textAlign: "start",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginTop: "5px",
+                cursor: "pointer",
+                color: `${colors.gray[100]}`
+              }}
+            >
+              <Typography variant="h5"> {link.name} </Typography> {link.icon}
+            </NavLink>
           ))}
       {role === "admin" ? (
         <button
